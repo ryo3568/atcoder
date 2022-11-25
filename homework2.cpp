@@ -6,7 +6,6 @@ template <typename T> bool chmax(T &a, const T& b) { if (a<b) { a=b; return true
 template <typename T> bool chmin(T &a, const T& b) { if (b<a) { a=b; return true;} return false;}
 
 int N = 100; // 囚人の人数
-bool sw = false; // スイッチの状態
 int c; // 囚人を部屋に招いた回数
 int person; // 部屋に招く囚人の番号 
 int cnt[100];
@@ -28,18 +27,15 @@ void reset(){
     }
 }
 
-
- 
-
 int main() {
-    int hash_max;
-    cin >> hash_max;
+    int hash_max; 
+    cin >> hash_max; 
     double result[hash_max];
     rep(hash, 0, hash_max){
         saccess = 0;
         failure = 0;
         rep(iter, 0, iteration){
-            sw = false;
+            bool sw = rand() % 2;
             reset();
             while(true){
                 person = rand() % 100; 
@@ -57,7 +53,7 @@ int main() {
                 }
                 before[person] = sw;
                 c++;
-                if(cnt[person] == hash && !sw){
+                if(cnt[person] == hash){
                     break;
                 }
             }
@@ -84,7 +80,7 @@ int main() {
         result[hash] = (double)(saccess) / iteration;
     }
     rep(i, 0, hash_max){
-        if (i) cout << ", ";
+        if(i) cout << ", ";
         printf("%.3lf", result[i]);
     }
     cout << endl;
