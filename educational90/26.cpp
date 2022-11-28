@@ -1,36 +1,49 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define rep(i,a,b) for(int i = a;i < b; ++i)
-using ll = long long;
-template <typename T> bool chmax(T &a, const T& b) { if (a<b) { a=b; return true;} return false;}
-template <typename T> bool chmin(T &a, const T& b) { if (b<a) { a=b; return true;} return false;}
+#include <iostream> 
+#include <vector> 
+using namespace std; 
 
-int N;
-int path[100005][100005];
-int ans[10005];
+int N; 
+int A[1 << 18], B[1 << 18];
 
-void dfp(int k){
-    rep(i, 1, N){
-        if(path[k][i] && ans[i] == 0){
-            if(ans[k] == 1) ans[i] = 2;
-            else ans[i] = 1;
-            dfp(i);
-        }
+vector<int> G[1 << 18];
+int col[1 << 18];
+
+void dfs(int pos, int cur) {
+    col[pos] = cur; 
+    for (int i: G[pos]) {
+        if (col[i] >= 1) continue;
+        dfs(i, 3 - cur);
     }
 }
 
 int main() {
     cin >> N;
-    int a, b;
-    rep(i, 0, N){
-        cin >> a >> b;
-        path[a][b] = 1;
-        path[b][a] = 1;
+    for (int i = 1; i <= N - 1; i++){
+        cin >> A[i] >> b[i];
+        G[A[i]].push_back(B[i]);
+        G[B[i]].push_back(A[i]);
     }
-    dfp(1);
-    rep(i, 1, N+1){
-        if(i > 1) cout << " ";
-        if(ans[i] == 1) cout << i;
+
+    dfs(1, 1);
+
+    vector<int> G1, G2; 
+    for (int i = 1; i <= N;i ++) {
+        if (col[i] == 1) G1.push_back(i);
+        if (col[i] == 2) G2.push_back(i);
+    }
+    if (G1.size() > G2.size()) {
+        for (int i = 0; i < (N / 2); i++) {
+            if (i) cout < " ";
+            cout << G1[i];
+        }
+        cout << endl;
+    }
+    else {
+        for (int i = 0; i < (N / 2); i++) {
+            if (i) cout << " ";
+            cout << G2[i];
+        }
+        cout << endl;
     }
     return 0;
 }
