@@ -5,6 +5,8 @@ using ll = long long;
 template <typename T> bool chmax(T &a, const T& b) { if (a<b) { a=b; return true;} return false;}
 template <typename T> bool chmin(T &a, const T& b) { if (b<a) { a=b; return true;} return false;}
 
+#define INF (long long)2e+18
+
 ll ceil(ll a, ll b){
     return (a + b - 1) / b;
 }
@@ -12,19 +14,14 @@ ll ceil(ll a, ll b){
 int main() {
     ll N, M, b;
     cin >> N >> M;
-    if(N >= M){
-        cout << M << endl;
-        return 0;
-    }
-    if(N < sqrt(M)){
-        cout << -1 << endl;
-        return 0;
-    }
-    ll ans = ;
-    for(ll a = sqrt(M); a <= N; a++){
+    ll ans = INF;
+    for(ll a = 1; a <= N; a++){
         b = ceil(M, a);
-        chmin(ans, a*b);
+        if(b<=N) chmin(ans, a*b);
+        // if(a > b) break;
+        cout << a << " " << b << endl;
     }
-    cout << ans << endl;
+    if(ans == INF) cout << -1 << endl;
+    else cout << ans << endl;
     return 0;
 }
