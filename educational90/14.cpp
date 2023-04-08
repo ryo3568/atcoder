@@ -4,7 +4,7 @@
 using namespace std;
 
 long long N;
-long long A[100009]
+long long A[100009];
 long long B[100009];
 
 int main() {
@@ -20,6 +20,7 @@ int main() {
    long long ans = 0;
     for (int i = N - 1; i >= 0; i--){
         ans += abs(A[i] - B[i]);
+        cout << abs(A[i] - B[i]) << endl;;
     }
     cout << ans << endl;
     return 0;
