@@ -1,23 +1,17 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define rep(i,a,b) for(int i = a;i < b; ++i)
-using ll = long long;
-template <typename T> bool chmax(T &a, const T& b) { if (a<b) { a=b; return true;} return false;}
-template <typename T> bool chmin(T &a, const T& b) { if (b<a) { a=b; return true;} return false;}
+#include <bits/stdc++.h> 
+using namespace std; 
 
-int main() {
-    string S;
-    cin >> S;
-    int b1 = -1, b2, r1 = -1, r2, k;
-    rep(i, 0, 8){
-        if(S[i] == 'B' && b1 == -1) b1 = i;
-        else if(S[i] == 'B') b2 = i;
-
-        if(S[i] == 'R' && r1 == -1) r1 = i;
-        else if(S[i] == 'R') r2 = i;
-
-        if(S[i] == 'K') k = i;
+int main(){
+    const int n = 8;
+    string s;
+    cin >> s;
+    map<char, vector<int>> mp;
+    for(int i = 0; i < n; i++) {
+        mp[s[i]].push_back(i);
     }
-    if((b1%2 != b2%2) && r1 < k && k < r2) cout << "Yes" << endl;
-    else cout << "No" << endl;
+
+    bool ok = 1;
+    ok &= mp['B'][0] % 2 != mp['B'][1] % 2;
+    ok &= mp['R'][0] < mp['K'][0] and mp['K'][0] < mp['R'][1];
+    cout << (ok ? "Yes\n" : "No\n");
 }
