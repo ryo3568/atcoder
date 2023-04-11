@@ -1,28 +1,24 @@
 #include <iostream>
 #include <cmath>
-using namespace std; 
+using namespace std;
 
+long long T;
+long long L, X, Y;
 int Q;
-long double T, L, X, Y, E;
+int E[1009];
 long double PI = 3.14159265358979;
 
-long double query(long double I) {
-    long double cx = 0;
-    long double cy = -(L / 2.0) * sin(I / T * 2.0 * PI);
-    long double cz = (L / 2.0) - (L / 2.0) * cos(I / T * 2.0 * PI);
-    long double d1 = sqrt((cx-X) * (cx - X) + (cy - Y) * (cy - Y));
-    long double d2 = cz;
-    long double kaku = atan2(d2, d1);
-    return kaku * 180.0L / PI;
-}
-
-int main() {
+int main(){
     cin >> T;
     cin >> L >> X >> Y;
     cin >> Q;
-    for (int i = 1; i <= Q; i++) {
-        cin >> E;
-        printf("%.12Lf\n", query(E));
+    for (int i = 0; i < Q; i++) cin >> E[i];
+    for (int i = 0; i < Q; i++){
+        long double z = (L / 2.0) - (L / 2.0) * cos(E[i]*2.0*PI/T);
+        long double y = -(L / 2.0) * sin(E[i]*2.0 *PI/T);
+        long double l = sqrt((Y - y) * (Y - y) + X * X);
+        long double ans = atan2(z, l);
+        ans *= 180.0L / PI;
+        printf("%.12Lf\n", ans);
     }
-    return 0;
 }
