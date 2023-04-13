@@ -12,5 +12,4 @@ int main() {
     cin >> A >> B >> C;
     long long S = gcd(A, gcd(B, C));
     cout << (A / S - 1LL) + (B / S - 1LL) + (C / S - 1LL) << endl;
-    return 0;
 }
