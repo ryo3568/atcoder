@@ -1,11 +1,11 @@
-#include <iostream> 
-#include <string> 
-#include <map> 
+#include <iostream>
+#include <string>
+#include <map>
 using namespace std; 
 
-int N; 
+int N;
 string S[1 << 18];
-map<string, int> Map; 
+map<string, int> Map;
 
 int main() {
     cin >> N;
