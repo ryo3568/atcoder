@@ -1,43 +1,42 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define rep(i,a,b) for(int i = a;i < b; ++i)
-using ll = long long;
-template <typename T> bool chmax(T &a, const T& b) { if (a<b) { a=b; return true;} return false;}
-template <typename T> bool chmin(T &a, const T& b) { if (b<a) { a=b; return true;} return false;}
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+using namespace std; 
 
 int N, M;
 int A[12][12];
-int path[12][12];
-bool used[12];
+int X[1 << 18], Y[1 << 18];
 
-ll dfs(int n, int i){
-    used[n] = true;
-    ll res = INT_MAX;
-    rep(j, 1, N+1){
-        if(used[j]) continue;
-        if(path[n][j]==1) continue;
-        res = min(dfs(j, i+1), res);
-    }
-    used[n] = false;
-    return res + A[n][i];
-}
+bool kenaku[12][12];
+int Answer = (1 << 30);
 
 int main() {
     cin >> N;
-    rep(i, 1, N+1) {
-        rep(j, 1, N+1) cin >> A[i][j];
+    for(int i=1;i <=N;i++){
+        for(int j=1;j <=N; j++) cin >> A[i][j];
     }
+
     cin >> M;
-    int X, Y;
-    rep(i, 1, M+1){
-        cin >> X >> Y;
-        path[X][Y] = 1;
-        path[Y][X] = 1;
+    for(int i=1; i <=M;i++) cin >> X[i] >> Y[i];
+
+    vector<int> vec;
+    for(int i=1;i <=N;i++) vec.push_back(i);
+    for(int i=1;i <=M;i++) {
+        kenaku[X[i]][Y[i]] = true;
+        kenaku[Y[i]][X[i]] = true;
     }
-    ll ans = INT_MAX;
-    rep(i, 1, N+1){
-        ans = min(dfs(i, 1), ans);
-    }
-    cout << ans << endl;
+
+    do{
+        bool flag = true;
+        int sum = 0;
+        for (int i =0; i < N-1; i++){
+            if(kenaku[vec[i]][vec[i+1]] == true) flag = false;
+        }
+        for(int i=0; i <N;i++) sum += A[vec[i]][i + 1];
+        if(flag==true) Answer = min(Answer, sum);
+    }while(next_permutation(vec.begin(), vec.end()));
+
+    if(Answer == (1 << 30)) Answer = -1;
+    cout << Answer << endl;
     return 0;
 }
